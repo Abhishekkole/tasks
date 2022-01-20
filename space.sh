@@ -1,15 +1,16 @@
-#!/bin/sh
 df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }' | while read output;
 do
   echo $output
-  usep=$(echo $output | awk '{ print $1}' | cut -d'%' -f1  )
+  percentage=$(echo $output | awk '{ print $1}' | cut -d'%' -f1  )
   partition=$(echo $output | awk '{ print $2 }' )
-  if [ $usep -ge 60 -a $usep -lt 80 ]; then
-    echo "Warning,you're out of space \"$partition ($usep%)\" on $(hostname) as on $(date)" 
 
-  elif [ $usep -ge  80 ]; then
-    echo "Critical,you're out of space \"$partition ($usep%)\" on $(hostname) as on $(date)" 
+  #elseif condition to check disk space percentage is greater than 60
+  if [ $percentage -ge 60 -a $percentage -lt 80 ]; then 
+    echo "Warning,you'll be out of space soon \"$partition ($percentage%)\" on $(hostname -i)" #display's 'WARNING' message with percentage,partition of disk and its IP ADDRESS 
+  
+  elif [ $percentage -ge  80 ]; then
+    echo "Critical,you'll be out of space soon \"$partition ($percentage%)\" on $(hostname -i)" #display's 'CRITICAL' message with percentage,partition of disk and its IP ADDRESS
   else
-    echo "None of the given disk space limit's have been reached"
+    echo "Have stable amount of disk space"
   fi
 done
