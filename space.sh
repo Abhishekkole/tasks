@@ -11,6 +11,6 @@ do
   elif [ $percentage -ge  80 ]; then
     echo "Critical,you'll be out of space soon \"$partition ($percentage%)\" on $(hostname -i)" #display's 'CRITICAL' message with percentage,partition of disk and its IP ADDRESS
   else
-    echo "Stable amount of disk space available on  $(hostname -i) address"
+    echo "Stable amount of disk space is present on $(hostname -i) address"
   fi
 done
