@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 #Install "software-properties"
 RUN apt-get update && apt-get install -y \
